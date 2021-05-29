@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         可以翻译的单词本
+// @name         WordNotes
 // @namespace    jumao
 // @version      0.1
 // @description  try to take over the world!
@@ -19,7 +19,6 @@ var db;
 
 (function () {
     regEvent();
-    openDB();
 })();
 
 function regEvent() { //注册事件
@@ -82,22 +81,6 @@ function translate(query) {//调用翻译接口
     }
 }
 
-function openDB() {
-    var request = window.indexedDB.open('WordNotes', 1);
-    request.onerror = function (event) {
-        console.log('数据库打开报错');
-    };
 
-    request.onsuccess = function (event) {
-        db = request.result;
-        console.log('数据库打开成功');
-    };
-
-    request.onupgradeneeded = function (event) {
-        db = event.target.result;
-        var objectStore = db.createObjectStore('words', { keyPath: 'word' });
-        objectStore.createIndex('name', 'word', { unique: false });
-    }
-}
 
 
